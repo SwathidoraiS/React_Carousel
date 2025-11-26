@@ -1,5 +1,7 @@
 # Ex05 Image Carousel
-## Date:
+## Date:05/11/2025
+### NAME : Swathi S
+### REG NO : 212223040220
 
 ## AIM
 To create a Image Carousel using React 
@@ -40,9 +42,158 @@ Clean up the interval when the component unmounts using clearInterval to prevent
 
 ## PROGRAM
 
+App.jsx
+
+```
+import { useState, useEffect } from "react";
+import "./App.css";
+import sun from "./sun.jpeg";
+import moon from "./moon.jpg";
+import earth from "./earth.jpg";
+
+function App() {
+  const images = [
+    { src: sun, alt: "Sun" },
+    { src: moon, alt: "Moon" },
+    { src: earth, alt: "Earth" },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="carousel">
+        <h1>   Solar Carousel 🌞🌙🌍</h1>
+      <div className="image-container">
+        <img
+          src={images[currentIndex].src}
+          alt={images[currentIndex].alt}
+          className="fade"
+        />
+      </div>
+      <div className="dots">
+        {images.map((_, index) => (
+          <span
+            key={index}
+            className={index === currentIndex ? "dot active" : "dot"}
+            onClick={() => setCurrentIndex(index)}
+          ></span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
+```
+
+App.css
+
+```
+/* Center everything on the page */
+.carousel {
+  background-color: #001f3f;
+  color: white;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical center */
+  align-items: center; /* horizontal center */
+  text-align: center;
+  overflow: hidden;
+  margin: 0;
+}
+
+/* Title styling */
+.carousel h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Image box styling */
+.image-container {
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+/* Image fit and animation */
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: opacity 1s ease-in-out;
+}
+
+/* Dot controls */
+.dots {
+  margin-top: 20px;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: white;
+}
+
+.fade {
+  animation: fadeEffect 1s ease-in-out;
+}
+
+@keyframes fadeEffect {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Remove unwanted scroll bars or padding */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+```
+
 
 ## OUTPUT
 
+![alt text](sun.png)
+
+
+
+ ![alt text](earth.png) 
+ 
+ 
+ 
+ ![alt text](moon.png)
 
 ## RESULT
 The program for creating Image Carousel using React is executed successfully.
